@@ -1,7 +1,12 @@
 import React from "react";
+import WikiList from "../components/WikiList";
 
 const Main = () => {
-  return <div>Main</div>;
+  return (
+    <div>
+      <WikiList />
+    </div>
+  );
 };
 
 export default Main;

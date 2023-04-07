@@ -40,4 +40,49 @@ export const wikiData: Wiki[] = [
     title: "제목 7",
     content: "내용 7",
   },
+  {
+    id: 7,
+    title: "제목 8",
+    content: "내용 8",
+  },
+  {
+    id: 8,
+    title: "제목 9",
+    content: "내용 9",
+  },
+  {
+    id: 9,
+    title: "제목 10",
+    content: "내용 10",
+  },
+  {
+    id: 10,
+    title: "제목 11",
+    content: "내용 11",
+  },
+  {
+    id: 11,
+    title: "제목 12",
+    content: "내용 12",
+  },
+  {
+    id: 12,
+    title: "제목 13",
+    content: "내용 13",
+  },
+  {
+    id: 13,
+    title: "제목 14",
+    content: "내용 14",
+  },
+  {
+    id: 14,
+    title: "제목 15",
+    content: "내용 15",
+  },
+  {
+    id: 15,
+    title: "제목 16",
+    content: "내용 16",
+  },
 ];

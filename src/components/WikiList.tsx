@@ -1,65 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { Wiki, wikiData } from "../interfaces/Data";
+import { useEffect, useState } from "react";
+import { Wiki } from "../interfaces/Data";
 import Pagenation from "./Pagenation";
 
-const WikiList = () => {
-  const [wikiList, setWikiList] = useState<Wiki[]>();
-  const [loading, setLoading] = useState<boolean>(false);
-
+interface Props {
+  data: Wiki[];
+}
+const WikiList = ({ data }: Props) => {
+  const [list, setList] = useState<Wiki[]>();
   const [page, setPage] = useState<number>(1);
   const limit = 5;
 
-  const sliceData = (data: Wiki[] | null) => {
+  const sliceData = () => {
     const offset = (page - 1) * limit;
-    if (data) {
-      return data.slice(offset, offset + limit);
+    const result = data.slice(offset, offset + limit);
+    setList(result);
+  };
+
+  const handlePageClick = (p: string) => {
+    if (p === "prev") {
+      setPage(page - 1);
+    } else if (p === "next") {
+      setPage(page + 1);
+    } else {
+      setPage(Number(p) + 1);
     }
-    return null;
-  };
-
-  const getData = () => {
-    setLoading(true);
-    setWikiList(wikiData);
-    setLoading(false);
-  };
-
-  const handlePageClick = (curPage: number) => {
-    setPage(curPage);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(() => {
-    const res = sliceData(wikiData);
-    if (res) {
-      setWikiList(res);
-    }
+    sliceData();
   }, [page]);
 
-  if (!wikiList) {
-    return <div>not data</div>;
-  }
-
   return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div>
-          {wikiList.map((wiki) => (
-            <div>{wiki.title}</div>
+    <>
+      {list && (
+        <>
+          {list.map((item, idx) => (
+            <div>{item.title}</div>
           ))}
           <Pagenation
             limit={limit}
             page={page}
-            total={wikiData.length}
+            total={data.length}
             onClickPage={handlePageClick}
           />
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

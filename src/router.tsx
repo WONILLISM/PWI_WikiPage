@@ -8,7 +8,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/wiki" element={<Wiki />} />
+        <Route path="/wiki/:id" element={<Wiki />} />
       </Routes>
     </BrowserRouter>
   );

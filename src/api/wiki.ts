@@ -1,6 +1,15 @@
 import { Wiki } from "../interfaces/Data";
 
-export const getWiki = async (): Promise<Wiki[] | null> => {
+export const getWiki = async (id: string): Promise<Wiki | null> => {
+  const res = await fetch(`http://localhost:4000/wiki/${id}`, {
+    method: "GET",
+  });
+
+  if (res.ok) return res.json();
+  return null;
+};
+
+export const getAllWiki = async (): Promise<Wiki[] | null> => {
   const res = await fetch("http://localhost:4000/wiki", {
     method: "GET",
   });

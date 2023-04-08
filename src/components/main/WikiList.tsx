@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
 import Pagenation from "../Pagenation";
+import { Link } from "react-router-dom";
 
 interface Props {
   data: Wiki[];
@@ -35,7 +36,9 @@ const WikiList = ({ data }: Props) => {
       {list && (
         <>
           {list.map((item, idx) => (
-            <div>{item.title}</div>
+            <div>
+              <Link to={`/wiki/${item.id}`}>{item.title}</Link>
+            </div>
           ))}
           <Pagenation
             limit={limit}

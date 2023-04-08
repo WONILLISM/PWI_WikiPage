@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Wiki } from "../interfaces/Data";
-import { getWiki, postWiki } from "../api/wiki";
+import { getAllWiki, postWiki } from "../api/wiki";
 import WikiList from "../components/main/WikiList";
 import WikiListToolbar from "../components/main/WikiListToolbar";
 
@@ -13,7 +13,7 @@ const Main = () => {
   const fetchWikiList = async () => {
     setLoading(true);
 
-    const wikiList = await getWiki();
+    const wikiList = await getAllWiki();
     if (wikiList) {
       setWikiList(wikiList.reverse());
       setLoading(false);

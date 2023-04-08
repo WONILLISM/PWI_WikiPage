@@ -33,3 +33,22 @@ export const postWiki = async (arg: Wiki): Promise<PostWikiResult> => {
 
   return "fail";
 };
+
+type PutWikiResult = "success" | "fail";
+
+export const putWiki = async (
+  id: string,
+  arg: Wiki
+): Promise<PutWikiResult> => {
+  const res = await fetch(`http://localhost:4000/wiki/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "PUT",
+    body: JSON.stringify(arg),
+  });
+
+  if (res.ok) return "success";
+
+  return "fail";
+};

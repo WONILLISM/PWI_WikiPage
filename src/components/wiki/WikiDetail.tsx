@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
-import { getWiki } from "../../api/wiki";
+import { getWiki, putWiki } from "../../api/wiki";
 
 interface Props {
   id: string;
@@ -8,6 +8,11 @@ interface Props {
 const WikiDetail = ({ id }: Props) => {
   const [wiki, setWiki] = useState<Wiki | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [pending, setPending] = useState<boolean>(false);
+
+  const [update, setUpdate] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
 
   const fetchWiki = async () => {
     setLoading(true);
@@ -15,8 +20,41 @@ const WikiDetail = ({ id }: Props) => {
     const wikiDetail = await getWiki(id);
     if (wikiDetail) {
       setWiki(wikiDetail);
+      setTitle(wikiDetail.title);
+      setContent(wikiDetail.content);
       setLoading(false);
     }
+  };
+
+  const updateWiki = async (newWiki: Wiki) => {
+    setPending(true);
+
+    const updateWikiRes = await putWiki(id, newWiki);
+    if (updateWikiRes === "success") {
+      setPending(false);
+      fetchWiki();
+    }
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setTitle(value);
+  };
+
+  const handleContentChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setContent(value);
+  };
+
+  const handleUpdateClick = () => {
+    setUpdate(true);
+  };
+
+  const handleSaveClick = () => {
+    updateWiki({ title, content });
+    setUpdate(false);
   };
 
   useEffect(() => {
@@ -30,8 +68,24 @@ const WikiDetail = ({ id }: Props) => {
         <></>
       ) : (
         <div>
-          <div>{wiki.title}</div>
-          <div>{wiki.content}</div>
+          <div>
+            {update ? (
+              <button onClick={handleSaveClick}>저장</button>
+            ) : (
+              <button onClick={handleUpdateClick}>수정</button>
+            )}
+          </div>
+          {update ? (
+            <div>
+              <input onChange={handleTitleChange} />
+              <input multiple onChange={handleContentChange} />
+            </div>
+          ) : (
+            <div>
+              <div>{wiki.title}</div>
+              <div>{wiki.content}</div>
+            </div>
+          )}
         </div>
       )}
     </>

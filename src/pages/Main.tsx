@@ -27,9 +27,7 @@ const Main = () => {
     if (resultCreateWiki === "success") {
       setPending(false);
       fetchWikiList();
-      return true;
     }
-    return false;
   };
 
   useEffect(() => {

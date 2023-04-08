@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Wiki } from "../interfaces/Data";
-import Pagenation from "./Pagenation";
+import { Wiki } from "../../interfaces/Data";
+import Pagenation from "../Pagenation";
 
 interface Props {
   data: Wiki[];

@@ -1,27 +1,39 @@
 import { useEffect, useState } from "react";
 
 import { Wiki } from "../interfaces/Data";
-import { getWiki } from "../api/wiki";
-import WikiList from "../components/WikiList";
+import { getWiki, postWiki } from "../api/wiki";
+import WikiList from "../components/main/WikiList";
+import WikiListToolbar from "../components/main/WikiListToolbar";
 
 const Main = () => {
   const [wikiList, setWikiList] = useState<Wiki[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [pending, setPending] = useState<boolean>(false);
 
   const fetchWikiList = async () => {
     setLoading(true);
 
     const wikiList = await getWiki();
     if (wikiList) {
-      setWikiList(wikiList);
+      setWikiList(wikiList.reverse());
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (!loading) {
+  const createWiki = async (arg: Wiki) => {
+    const resultCreateWiki = await postWiki(arg);
+
+    setPending(true);
+    if (resultCreateWiki === "success") {
+      setPending(false);
       fetchWikiList();
+      return true;
     }
+    return false;
+  };
+
+  useEffect(() => {
+    fetchWikiList();
   }, []);
 
   return (
@@ -31,7 +43,10 @@ const Main = () => {
       ) : !wikiList ? (
         <></>
       ) : (
-        <WikiList data={wikiList} />
+        <>
+          <WikiListToolbar handleAddButtonClick={createWiki} />
+          <WikiList data={wikiList} />
+        </>
       )}
     </>
   );

@@ -15,8 +15,10 @@ const WikiContent = ({ wiki }: Props) => {
     const curId = wiki.id;
 
     if (curId !== undefined) {
-      let values = wikiList.map((v) => Object.values(v));
-      let curContent = values[curId][1];
+      let values = wikiList
+        .filter(({ id }) => id !== wiki.id)
+        .map((v) => Object.values(v));
+      let curContent = wiki.content;
 
       for (let i = 0; i < values.length; i++) {
         const id = values[curId][2];
@@ -26,7 +28,6 @@ const WikiContent = ({ wiki }: Props) => {
           reg,
           `<a href="/wiki/${id}">${title}</a>`
         );
-        console.log(title);
       }
       setContent(curContent);
     }

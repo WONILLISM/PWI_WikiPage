@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
 import { getWiki, putWiki } from "../../api/wiki";
 import WikiContent from "./WikiContent";
+import RelatedWikiList from "./RelatedWikiList";
 
 interface Props {
   id: string;
@@ -90,7 +91,10 @@ const WikiDetail = ({ id }: Props) => {
               />
             </div>
           ) : (
-            <WikiContent wiki={wiki} />
+            <>
+              <WikiContent wiki={wiki} />
+              <RelatedWikiList wiki={wiki} />
+            </>
           )}
         </div>
       )}

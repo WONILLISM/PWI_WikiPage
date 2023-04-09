@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
 import Pagenation from "../Pagenation";
-import { Link } from "react-router-dom";
+import WikiRow from "./WikiRow";
 
 interface Props {
   data: Wiki[];
@@ -12,8 +12,9 @@ const WikiList = ({ data }: Props) => {
   const limit = 5;
 
   const sliceData = () => {
+    const reverseList = [...data].reverse();
     const offset = (page - 1) * limit;
-    const result = data.slice(offset, offset + limit);
+    const result = reverseList.slice(offset, offset + limit);
     setList(result);
   };
 
@@ -36,9 +37,7 @@ const WikiList = ({ data }: Props) => {
       {list && (
         <>
           {list.map((item, idx) => (
-            <div>
-              <Link to={`/wiki/${item.id}`}>{item.title}</Link>
-            </div>
+            <WikiRow wikiList={data} item={item} />
           ))}
           <Pagenation
             limit={limit}

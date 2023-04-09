@@ -13,9 +13,9 @@ const Main = () => {
   const fetchWikiList = async () => {
     setLoading(true);
 
-    const wikiList = await getAllWiki();
-    if (wikiList) {
-      setWikiList(wikiList.reverse());
+    const wikiListRes = await getAllWiki();
+    if (wikiListRes) {
+      setWikiList(wikiListRes);
       setLoading(false);
     }
   };

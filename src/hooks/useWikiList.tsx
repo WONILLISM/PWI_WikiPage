@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Wiki } from "../../interfaces/Data";
-import { getAllWiki, postWiki } from "../../api/wiki";
+import { Wiki } from "../interfaces/Data";
+import { getAllWiki, postWiki } from "../api/wiki";
 
 const useWikiList = () => {
   const [wikiList, setWikiList] = useState<Wiki[] | null>(null);

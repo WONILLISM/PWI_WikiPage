@@ -1,10 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { Wiki } from "../interfaces/Data";
-import { getAllWiki, postWiki } from "../api/wiki";
 import WikiList from "../components/main/WikiList";
 import WikiListToolbar from "../components/main/WikiListToolbar";
-import useWikiList from "../components/hooks/useWikiList";
+import useWikiList from "../hooks/useWikiList";
+import Page from "../components/Page";
+import styled from "styled-components";
+
+const WikiListWrapper = styled.div`
+  margin-top: 16px;
+  min-width: 360px;
+  display: flex;
+  flex-direction: column;
+
+  background-color: #ffffff;
+  border-radius: 16px;
+`;
 
 const Main = () => {
   const { wikiList, loading, pending, fetchWikiList, createWiki } =
@@ -15,18 +25,18 @@ const Main = () => {
   }, []);
 
   return (
-    <>
-      {loading ? (
-        <div>Loading ... </div>
-      ) : !wikiList ? (
-        <></>
-      ) : (
-        <>
-          <WikiListToolbar handleAddButtonClick={createWiki} />
+    <Page>
+      <WikiListWrapper>
+        <WikiListToolbar handleAddButtonClick={createWiki} />
+        {loading ? (
+          <div>Loading ... </div>
+        ) : !wikiList ? (
+          <></>
+        ) : (
           <WikiList data={wikiList} />
-        </>
-      )}
-    </>
+        )}
+      </WikiListWrapper>
+    </Page>
   );
 };
 

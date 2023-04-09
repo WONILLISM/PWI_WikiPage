@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import WikiDetail from "../components/wiki/WikiDetail";
 import useWikiList from "../hooks/useWikiList";
+import Page from "../components/Page";
 
 const Wiki = () => {
   const { wikiList, loading, pending, fetchWikiList, createWiki } =
@@ -17,7 +18,7 @@ const Wiki = () => {
   }
 
   return (
-    <>
+    <Page>
       {loading ? (
         <div>Loading...</div>
       ) : !wikiList ? (
@@ -25,7 +26,7 @@ const Wiki = () => {
       ) : (
         <WikiDetail id={id} wikiList={wikiList} />
       )}
-    </>
+    </Page>
   );
 };
 

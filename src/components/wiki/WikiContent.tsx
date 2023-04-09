@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
-import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+
+const RootStyle = styled.div``;
 
 interface Props {
   wiki: Wiki;
@@ -36,7 +38,11 @@ const WikiContent = ({ wiki, wikiList }: Props) => {
     replaceContent();
   }, []);
 
-  return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  return (
+    <RootStyle>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </RootStyle>
+  );
 };
 
 export default WikiContent;

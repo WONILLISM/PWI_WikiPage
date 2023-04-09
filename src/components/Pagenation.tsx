@@ -1,12 +1,47 @@
 import React from "react";
 import styled from "styled-components";
 
+const Button = styled.button`
+  cursor: pointer;
+  padding: 4px;
+
+  &:disabled {
+    pointer-events: none;
+    color: #a9a9a9;
+  }
+
+  &:hover {
+    border-bottom: 1px solid #a5d1e1;
+  }
+`;
+
+const NumberButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 28px;
+  height: 28px;
+
+  cursor: pointer;
+  border: 1px solid #a5d1e1;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: #a5d1e1;
+    color: #f9f9f9;
+  }
+`;
+
 const RootStyle = styled.div`
   display: flex;
   justify-content: center;
+  gap: 8px;
 
   padding: 16px;
   border-radius: 0 0 16px 16px;
+
+  color: #59a5b7;
 `;
 
 interface Props {
@@ -21,17 +56,17 @@ const Pagenation = ({ limit, page, total, onClickPage }: Props) => {
 
   return (
     <RootStyle>
-      <button disabled={page <= 1} onClick={() => onClickPage("prev")}>
+      <Button disabled={page <= 1} onClick={() => onClickPage("prev")}>
         prev
-      </button>
+      </Button>
       {[...Array(pageNums)].map((_, idx) => (
-        <button key={idx} onClick={() => onClickPage(String(idx))}>
+        <NumberButton key={idx} onClick={() => onClickPage(String(idx))}>
           {idx + 1}
-        </button>
+        </NumberButton>
       ))}
-      <button disabled={page >= pageNums} onClick={() => onClickPage("next")}>
+      <Button disabled={page >= pageNums} onClick={() => onClickPage("next")}>
         next
-      </button>
+      </Button>
     </RootStyle>
   );
 };

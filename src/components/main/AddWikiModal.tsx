@@ -1,6 +1,55 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Wiki } from "../../interfaces/Data";
+import TextField from "../TextFeild";
+
+const AddButton = styled.button`
+  color: #59a5b7;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 8px;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-0.5px);
+    transition: all ease-in-out 0.1s;
+  }
+  &:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+`;
+
+const CloseButton = styled.button`
+  color: #f9f9f9;
+  background-color: #59a5b7;
+  padding: 4px 12px;
+  border-radius: 8px;
+
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  &:hover {
+    background-color: #a5d1e1;
+    color: #f9f9f9;
+  }
+`;
+
+const SaveButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9f9f9;
+  background-color: #59a5b7;
+  border-radius: 8px;
+  padding: 8px;
+
+  &:hover {
+    background-color: #a5d1e1;
+    color: #f9f9f9;
+  }
+`;
 
 const RootStyle = styled.div`
   position: fixed;
@@ -17,8 +66,11 @@ const RootStyle = styled.div`
 const ModalStyle = styled.div`
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
+  display: flex;
+  flex-direction: column;
+
+  padding: 36px 20px 20px 20px;
   width: 600px;
-  height: 200px;
 
   z-index: 999;
 
@@ -27,15 +79,8 @@ const ModalStyle = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  background-color: gray;
-  border: 1px solid black;
+  background-color: #f9f9f9;
   border-radius: 8px;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  right: 10px;
-  top: 10px;
 `;
 
 interface Props {
@@ -81,12 +126,14 @@ const AddWikiModal = ({ handleAddButtonClick }: Props) => {
   };
 
   const handleClose = () => {
+    setTitle("");
+    setContent("");
     setOpen(false);
   };
 
   return (
     <>
-      <button onClick={handleOpen}>추가</button>
+      <AddButton onClick={handleOpen}>ADD</AddButton>
       {open && (
         <>
           <RootStyle>
@@ -97,16 +144,28 @@ const AddWikiModal = ({ handleAddButtonClick }: Props) => {
                 e.stopPropagation();
               }}
             >
-              <CloseButton onClick={handleClose}>x</CloseButton>
-              <input type="text" onChange={handleTitleChange} />
-              <input type="text" onChange={handleContentChange} />
-              <button
+              <CloseButton onClick={handleClose}>close</CloseButton>
+              <TextField
+                type="text"
+                value={title}
+                label="제목"
+                onChange={handleTitleChange}
+              />
+              <TextField
+                type="text"
+                value={content}
+                label="내용"
+                multiline
+                onChange={handleContentChange}
+              />
+              <SaveButton
                 onClick={() => {
+                  handleClose();
                   handleAddButtonClick({ title, content });
                 }}
               >
-                추가
-              </button>
+                Save
+              </SaveButton>
             </ModalStyle>
           </RootStyle>
         </>

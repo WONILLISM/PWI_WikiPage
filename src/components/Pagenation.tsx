@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = styled.button`
-  cursor: pointer;
   padding: 4px;
 
   &:disabled {
@@ -23,7 +22,6 @@ const NumberButton = styled.button`
   width: 28px;
   height: 28px;
 
-  cursor: pointer;
   border: 1px solid #a5d1e1;
   border-radius: 50%;
 

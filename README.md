@@ -9,7 +9,7 @@ root 디렉토리에서 아래 명령어를 입력해주세요.
 
 ```
 yarn run initialize
-yarn backend
+yarn server
 # 다른 터미널에서
 yarn client
 ```

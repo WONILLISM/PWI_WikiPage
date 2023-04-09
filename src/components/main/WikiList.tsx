@@ -37,7 +37,7 @@ const WikiList = ({ data }: Props) => {
       {list && (
         <>
           {list.map((item, idx) => (
-            <WikiRow wikiList={data} item={item} />
+            <WikiRow item={item} />
           ))}
           <Pagenation
             limit={limit}

@@ -1,22 +1,31 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
+import WikiRow from "../main/WikiRow";
 
 interface Props {
   wiki: Wiki;
+  wikiList: Wiki[];
 }
 
-const RelatedWikiList = ({ wiki }: Props) => {
-  const { wikiList } = useLocation().state as { wikiList: Wiki[] };
-
+const RelatedWikiList = ({ wiki, wikiList }: Props) => {
+  const [relatedWikiList, setRelatedWikiList] = useState<Wiki[]>([]);
   const findWikiList = () => {
     const list = wikiList.filter(({ id }) => id !== wiki.id);
-    console.log(list);
+
+    setRelatedWikiList(list);
   };
 
-  findWikiList();
+  useEffect(() => {
+    findWikiList();
+  }, [wikiList]);
 
-  return <div>RelatedWikiList</div>;
+  return (
+    <div>
+      {relatedWikiList.map((wiki, idx) => (
+        <WikiRow item={wiki} />
+      ))}
+    </div>
+  );
 };
 
 export default RelatedWikiList;

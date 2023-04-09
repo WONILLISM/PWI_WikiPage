@@ -94,7 +94,7 @@ const WikiDetail = ({ id, wikiList }: Props) => {
           ) : (
             <>
               <WikiContent wiki={wiki} wikiList={wikiList} />
-              {/* <RelatedWikiList wiki={wiki} /> */}
+              <RelatedWikiList wiki={wiki} wikiList={wikiList} />
             </>
           )}
         </div>

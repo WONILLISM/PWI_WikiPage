@@ -24,7 +24,15 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
 
     background-color: #0d5c75;
-  }  
+  }
+
+  button {
+    all: unset;
+    
+    &:disabled {
+    pointer-events: none;
+  }
+  }
 `;
 
 export default GlobalStyle;

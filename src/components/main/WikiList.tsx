@@ -2,10 +2,19 @@ import { useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
 import Pagenation from "../Pagenation";
 import WikiRow from "./WikiRow";
+import styled from "styled-components";
+
+const Items = styled.div``;
+
+const RootStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 interface Props {
   data: Wiki[];
 }
+
 const WikiList = ({ data }: Props) => {
   const [list, setList] = useState<Wiki[]>();
   const [page, setPage] = useState<number>(1);
@@ -33,21 +42,15 @@ const WikiList = ({ data }: Props) => {
   }, [page]);
 
   return (
-    <>
-      {list && (
-        <>
-          {list.map((item, idx) => (
-            <WikiRow item={item} />
-          ))}
-          <Pagenation
-            limit={limit}
-            page={page}
-            total={data.length}
-            onClickPage={handlePageClick}
-          />
-        </>
-      )}
-    </>
+    <RootStyle>
+      <Items>{list && list.map((item, idx) => <WikiRow item={item} />)}</Items>
+      <Pagenation
+        limit={limit}
+        page={page}
+        total={data.length}
+        onClickPage={handlePageClick}
+      />
+    </RootStyle>
   );
 };
 

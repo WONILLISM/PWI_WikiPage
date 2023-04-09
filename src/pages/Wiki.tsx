@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import WikiDetail from "../components/wiki/WikiDetail";
-import useWikiList from "../components/hooks/useWikiList";
+import useWikiList from "../hooks/useWikiList";
 
 const Wiki = () => {
   const { wikiList, loading, pending, fetchWikiList, createWiki } =

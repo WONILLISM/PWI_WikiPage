@@ -5,9 +5,13 @@ db.json 파일을 첨부합니다.
 
 ## 사용법
 
+root 디렉토리에서 아래 명령어를 입력해주세요.
+
 ```
-yarn global add json-server
-json-server ./db.json --port 4000
+yarn run initialize
+yarn backend
+# 다른 터미널에서
+yarn client
 ```
 
 - [x] 위키페이지는 제목과 본문으로 구성되며 각각 텍스트입니다.

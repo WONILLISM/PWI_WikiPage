@@ -2,13 +2,11 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
 import { getWiki, putWiki } from "../../api/wiki";
 import WikiContent from "./WikiContent";
-import RelatedWikiList from "./RelatedWikiList";
 
 interface Props {
   id: string;
-  wikiList: Wiki[];
 }
-const WikiDetail = ({ id, wikiList }: Props) => {
+const WikiDetail = ({ id }: Props) => {
   const [wiki, setWiki] = useState<Wiki | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [pending, setPending] = useState<boolean>(false);
@@ -92,10 +90,7 @@ const WikiDetail = ({ id, wikiList }: Props) => {
               />
             </div>
           ) : (
-            <>
-              <WikiContent wiki={wiki} wikiList={wikiList} />
-              <RelatedWikiList wiki={wiki} wikiList={wikiList} />
-            </>
+            <WikiContent wiki={wiki} />
           )}
         </div>
       )}

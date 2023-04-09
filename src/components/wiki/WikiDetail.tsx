@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Wiki } from "../../interfaces/Data";
 import { getWiki, putWiki } from "../../api/wiki";
+import WikiContent from "./WikiContent";
 
 interface Props {
   id: string;
@@ -42,7 +43,7 @@ const WikiDetail = ({ id }: Props) => {
     setTitle(value);
   };
 
-  const handleContentChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
 
     setContent(value);
@@ -60,6 +61,7 @@ const WikiDetail = ({ id }: Props) => {
   useEffect(() => {
     fetchWiki();
   }, []);
+
   return (
     <>
       {loading ? (
@@ -77,14 +79,18 @@ const WikiDetail = ({ id }: Props) => {
           </div>
           {update ? (
             <div>
-              <input onChange={handleTitleChange} />
-              <input multiple onChange={handleContentChange} />
+              <input
+                type="text"
+                defaultValue={wiki.title}
+                onChange={handleTitleChange}
+              />
+              <textarea
+                defaultValue={wiki.content}
+                onChange={handleContentChange}
+              />
             </div>
           ) : (
-            <div>
-              <div>{wiki.title}</div>
-              <div>{wiki.content}</div>
-            </div>
+            <WikiContent wiki={wiki} />
           )}
         </div>
       )}

@@ -4,11 +4,10 @@ import { useLocation } from "react-router-dom";
 
 interface Props {
   wiki: Wiki;
+  wikiList: Wiki[];
 }
 
-const WikiContent = ({ wiki }: Props) => {
-  const location = useLocation();
-  const { wikiList } = location.state as { wikiList: Wiki[] };
+const WikiContent = ({ wiki, wikiList }: Props) => {
   const [content, setContent] = useState<string>("");
 
   const replaceContent = () => {
@@ -21,7 +20,7 @@ const WikiContent = ({ wiki }: Props) => {
       let curContent = wiki.content;
 
       for (let i = 0; i < values.length; i++) {
-        const id = values[curId][2];
+        const id = values[i][2];
         const title = values[i][0];
         const reg = new RegExp(`${title}`, "g");
         curContent = curContent.replace(

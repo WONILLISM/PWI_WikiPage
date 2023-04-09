@@ -6,8 +6,9 @@ import RelatedWikiList from "./RelatedWikiList";
 
 interface Props {
   id: string;
+  wikiList: Wiki[];
 }
-const WikiDetail = ({ id }: Props) => {
+const WikiDetail = ({ id, wikiList }: Props) => {
   const [wiki, setWiki] = useState<Wiki | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [pending, setPending] = useState<boolean>(false);
@@ -92,8 +93,8 @@ const WikiDetail = ({ id }: Props) => {
             </div>
           ) : (
             <>
-              <WikiContent wiki={wiki} />
-              <RelatedWikiList wiki={wiki} />
+              <WikiContent wiki={wiki} wikiList={wikiList} />
+              {/* <RelatedWikiList wiki={wiki} /> */}
             </>
           )}
         </div>
